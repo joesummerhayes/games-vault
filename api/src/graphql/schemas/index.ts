@@ -3,11 +3,12 @@ import { buildSchema } from 'graphql';
 export default buildSchema(`
   type User {
     _id: ID!
-    name: String!
+    firstName: String!
+    lastName: String!
     email: String
   }
   type RootQuery {
-    user: User!
+    user(email: String!): User!
   }
   schema {
     query: RootQuery

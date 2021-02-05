@@ -70,7 +70,7 @@ const mongoConfig = {
 
 mongoose.connect(`${process.env.MONGO_URL}`, mongoConfig)
   .then(() => {
-    app.listen(4000, () => console.log('process.env.MONGO_URL'));
+    app.listen(4000, () => console.log('connected to database'));
   })
   .catch((err) => {
     console.log(err);
