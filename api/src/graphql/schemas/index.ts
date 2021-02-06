@@ -1,25 +1,16 @@
 import { buildSchema } from 'graphql';
+import { inputData } from './inputData';
+import { types } from './types';
+import { mutations } from './mutations';
+import { queries } from './queries';
 
 export default buildSchema(`
-  type User {
-    _id: ID!
-    firstName: String!
-    lastName: String!
-    email: String
-  }
-  type UserInputData {
-    email: String!
-    firstName: String!
-    lastName: String!
-    password: String!
-  }
-  type RootQuery {
-    user(email: String!): User!
-  }
-  type RootMutation {
-    createUser(userInput: UserInputData!): User!
-  }
+  ${types}
+  ${inputData}
+  ${queries}
+  ${mutations}
   schema {
     query: RootQuery
+    mutation: RootMutation
   }
 `);
