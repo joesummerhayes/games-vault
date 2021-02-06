@@ -7,8 +7,17 @@ export default buildSchema(`
     lastName: String!
     email: String
   }
+  type UserInputData {
+    email: String!
+    firstName: String!
+    lastName: String!
+    password: String!
+  }
   type RootQuery {
     user(email: String!): User!
+  }
+  type RootMutation {
+    createUser(userInput: UserInputData!): User!
   }
   schema {
     query: RootQuery
