@@ -1,16 +1,11 @@
 import { Request } from 'express';
 import User, { IUser } from '../modals/user';
 import bcrypt from 'bcrypt';
-import validator from 'validator';
+import { validateUser } from './utils';
 
 interface GetUser {
   email: string;
 }
-
-interface ValidationError {
-  message: string;
-}
-
 interface CreateUser {
   email: string;
   firstName: string;
@@ -36,26 +31,7 @@ export default {
       return existingUser;
     }
 
-    const errors: ValidationError[] = [];
-    if (!validator.isEmail(email)) {
-      errors.push({ message: 'Email is not valid' });
-    }
-    if (validator.isEmpty(password) || !validator.isLength(password, { min: 5 })) {
-      errors.push({ message: 'password is too short' });
-    }
-    if (errors.length > 0) {
-
-      const reducer = (acc, cur) => {
-        if (cur.message) {
-          acc += cur.message;
-        }
-        return acc;
-      }
-
-      const errorString = errors.map((error) => error.message).reduce(reducer);
-      const error = new Error(errorString);
-      throw error;
-    }
+    validateUser(email, password)
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUser = new User({

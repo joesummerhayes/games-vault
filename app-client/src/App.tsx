@@ -15,7 +15,6 @@ const useStyles = makeStyles({
     width: '100%'
   },
   root: {
-    // make this color lighter
     background: colors.white,
     marginBottom: '7rem'
   }
