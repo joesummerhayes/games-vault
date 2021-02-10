@@ -4,9 +4,8 @@ import User, { IUser } from '../modals/user';
 
 interface CreateUser {
   email: string;
-  firstName: string;
-  lastName: string;
   password: string;
+  username: string;
 }
 
 interface GetUser {
@@ -14,8 +13,8 @@ interface GetUser {
 }
 
 export default {
-  async createUser(args:  CreateUser, req: Request): Promise<IUser> {
-    const { email, firstName, lastName, password } = args;
+  async createUser(args:  CreateUser, _req: Request): Promise<IUser> {
+    const { email, username, password } = args;
     const existingUser = await User.findOne({ email })
     if (existingUser) {
       return existingUser;
@@ -25,10 +24,9 @@ export default {
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
-      firstName,
-      lastName,
       email,
       password: hashedPassword,
+      username,
     });
 
     try {
@@ -38,7 +36,7 @@ export default {
       throw err;
     }
   },
-  async user(args: GetUser, req: Request): Promise<IUser> {
+  async user(args: GetUser, _req: Request): Promise<IUser> {
     const { email } = args;
     const user = await User.findOne({email});
 
