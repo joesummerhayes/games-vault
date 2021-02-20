@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextField, Box, Typography, Button } from '@material-ui/core';
+import { TextField, Box, Typography } from '@material-ui/core';
 import Arrow from '@material-ui/icons/ArrowForward';
 import MuiAlert from '@material-ui/lab/Alert';
-// import { loginAction } from '../actions/index';
+import { loginAction } from '../actions/auth';
 import { required, email } from '../utils/validation';
 import {colors} from '../theme';
 // import hero from '../images/loginHero.png';
-// import Button from './components/Button';
+import Button from '../components/Button';
 // import { AppState } from '../app-state';
 
 
@@ -80,7 +80,7 @@ export const Login: React.FC = () => {
     },
   });
   const classes = useStyles();
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const isError = useSelector((state: AppState) => state.error);
 
   const loginUser = (e: React.MouseEvent<HTMLButtonElement>): void => {
@@ -89,7 +89,7 @@ export const Login: React.FC = () => {
       email: form.email.value,
       password: form.password.value,
     };
-    // dispatch(loginAction(formValues));
+    dispatch(loginAction(formValues));
   };
 
   const blurHandler = (inputField: string): void => {
@@ -167,8 +167,7 @@ export const Login: React.FC = () => {
           />
         </div>
         {handleError()}
-        {/* <Button text="Login" clickHandler={loginUser} className={classes.submitButton} /> */}
-        <Button> Hello</Button>
+        <Button text="Login" clickHandler={loginUser} className={classes.submitButton} />
         <Typography className={classes.helperActions}>
           Forgot your password?
           <Arrow className={classes.arrowIcon} />
