@@ -1,5 +1,5 @@
 export const inputData = `
-  type UserInputData {
+  input UserInputData {
     email: String!
     username: String!
     password: String!
