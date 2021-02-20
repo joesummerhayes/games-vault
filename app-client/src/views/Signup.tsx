@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import MuiAlert from '@material-ui/lab/Alert';
 import TextField from '@material-ui/core/TextField';
@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { required, length, email, confirmPass } from '../utils/validation';
 // import { createUserAction } from '../actions/index';
 import { FormItem, Validator } from './Login';
+import createUser from '../data/create-user';
 
 const useStyles = makeStyles({
   root: {
@@ -28,7 +29,7 @@ const Signup = (): ReactElement => {
   // const isError = useSelector((state: any) => state.error);
   const [formIsValid, validateForm] = React.useState(false);
   const [form, setForm] = React.useState<Record<string, FormItem>>({
-    name: {
+    username: {
       value: '',
       touched: false,
       valid: false,
@@ -125,21 +126,26 @@ const Signup = (): ReactElement => {
             //     password: form.password.value,
             //   }),
             // );
+            createUser({
+              username: form.username.value,
+              email: form.email.value,
+              password: form.email.value
+            })
           }
         }}
       >
         <div className={classes.inputField}>
           <TextField
-            id="name"
+            id="username"
             variant="outlined"
-            placeholder="name"
-            value={form.name.value}
+            placeholder="username"
+            value={form.username.value}
             onChange={handleInputChange}
-            onBlur={(): void => blurHandler('name')}
-            error={form.name.touched && !form.name.valid}
+            onBlur={(): void => blurHandler('username')}
+            error={form.username.touched && !form.username.valid}
             required
             fullWidth
-            helperText={form.name.touched && !form.name.valid ? 'Must provide user name' : ''}
+            helperText={form.username.touched && !form.username.valid ? 'Must provide user name' : ''}
           />
         </div>
         <div className={classes.inputField}>
