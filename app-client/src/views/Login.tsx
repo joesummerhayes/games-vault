@@ -11,21 +11,12 @@ import {colors} from '../theme';
 import Button from '../components/Button';
 // import { AppState } from '../app-state';
 
-
-export interface FormItem {
-  value: string;
-  touched: boolean;
-  valid: boolean;
-  validators: Validator[];
-}
-export interface Validator {
-  (arg: string): boolean;
-}
-
 const useStyles = makeStyles({
   root: {
     margin: 'auto',
     width: '40%',
+    marginTop: '4rem',
+    marginBottom: '4rem',
   },
   inputField: {
     paddingTop: '1rem',
@@ -37,10 +28,11 @@ const useStyles = makeStyles({
     borderRadius: 'inherit',
   },
   box: {
+    marginTop: '10rem',
     backgroundColor: '#d4ebf2',
     // backgroundImage: `url(${hero})`,
-    height: '100vh',
-    width: '100vw',
+    // height: '100vh',
+    // width: '100vw',
     backgroundSize: '100%',
     backgroundRepeat: 'no-repeat',
   },
@@ -65,7 +57,7 @@ const useStyles = makeStyles({
 
 export const Login: React.FC = () => {
 
-  const [form, setForm] = React.useState<Record<string, FormItem>>({
+  const [form, setForm] = React.useState<Record<string, GVType.FormItem>>({
     email: {
       touched: false,
       valid: false,
@@ -113,9 +105,9 @@ export const Login: React.FC = () => {
     const { value } = target;
     const { id } = target;
     let isInputValid = true;
-    // form[id].validators.map((validator: FFType.Validator): void => {
-    //   isInputValid = isInputValid && validator(value);
-    // });
+    form[id].validators.map((validator: GVType.Validator): void => {
+      isInputValid = isInputValid && validator(value);
+    });
 
     const updatedForm = {
       ...form,
@@ -141,6 +133,7 @@ export const Login: React.FC = () => {
             variant="outlined"
             value={form.email.value}
             label="Email"
+            // placeholder = "Email"
             InputLabelProps={{ className: classes.inputText }}
             onChange={handleInputChange}
             onBlur={(): void => blurHandler('email')}

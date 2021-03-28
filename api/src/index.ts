@@ -5,6 +5,7 @@ import graphqlHttp from 'express-graphql';
 import graphqlSchema from './graphql/schemas';
 import graphiqlResolver from './graphql/resolvers/index';
 import mongoose from 'mongoose';
+import authMiddleware from './middlewares/auth';
 
 
 const app = express();
@@ -12,10 +13,6 @@ const app = express();
 config();
 
 app.use(bodyParser.json());
-
-
-// TODO set up authentication middleware
-// app.use(authMiddleware); 
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -26,6 +23,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use(authMiddleware); 
 
 app.use('/graphql', graphqlHttp({
   schema: graphqlSchema,

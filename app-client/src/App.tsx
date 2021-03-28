@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
 import { Review } from './views/Review';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography } from '@material-ui/core'
+import { Container } from '@material-ui/core'
 import history from './history';
 import { Nav } from './components/Nav';
 import {colors} from './theme';
 import { Login } from './views/Login';
 import Signup from './views/Signup';
+import { getUserAction } from './actions/auth';
 
 
 const useStyles = makeStyles({
@@ -25,6 +27,16 @@ const useStyles = makeStyles({
 
 const App: React.FC = () => {
   const classes = useStyles();
+  const token = localStorage.getItem('token');
+  const expiryDate = localStorage.getItem('expiryDate');
+  const dispatch = useDispatch();
+  
+  useEffect(() => {
+    if (token) {
+      dispatch(getUserAction())
+    }
+  });
+
   return (
     <Router history={history}>
       <div className={classes.root}>

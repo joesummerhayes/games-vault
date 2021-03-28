@@ -9,14 +9,13 @@ const getUser = async (): Promise<GVType.User> => {
     query {
       user {
         _id
-        name
+        username
         email
       }
     }`);
   if (response === null) {
     throw new Error('could not get user details');
   }
-  console.log(response.user);
   return response.user;
 };
 

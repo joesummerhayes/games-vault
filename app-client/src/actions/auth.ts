@@ -1,14 +1,19 @@
 import { Dispatch } from 'redux';
 import { ActionTypes } from './types';
 import login from '../data/login';
-import getUser from '../data/get-user';
 import history from '../history';
 import { UserState } from '../reducers/user-auth';
+import getUser from '../data/get-user';
 
 export interface LoginUserAction {
-  type: ActionTypes;
+  type: ActionTypes.loginUser;
   payload: UserState;
-}
+};
+
+export interface FetchingUserAction {
+  type: ActionTypes.fetchUser;
+  payload: UserState
+};
 
 export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (dispatch: Dispatch): Promise<void> => {
   try {
@@ -16,8 +21,6 @@ export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (disp
     if (!loggedInUser) {
       throw new Error('no user found with these credentials');
     }
-
-    console.log('333', loggedInUser);
     const { token, user: { _id } } = loggedInUser;
 
     localStorage.setItem('token', token);
@@ -27,8 +30,7 @@ export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (disp
       new Date().getTime() + remainingMilliseconds,
     );
     localStorage.setItem('expiryDate', expiryDate.toISOString());
-    // const user = await getUser();
-    // history.push('/');
+
     // dispatch({
     //   type: ActionTypes.clearError,
     // });
@@ -41,6 +43,8 @@ export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (disp
         _id: loggedInUser?.user?._id
       }
     }
+
+    history.push('/');
 
     dispatch<LoginUserAction>({
       type: ActionTypes.loginUser,
@@ -55,6 +59,8 @@ export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (disp
   }
 };
 
+
+
 // export const logoutAction = () => (dispatch: Dispatch): void => {
 //   localStorage.removeItem('token');
 //   localStorage.removeItem('expiryDate');
@@ -63,3 +69,19 @@ export const loginAction = (loginInputData: GVType.LoginUserArgs) => async (disp
 //     type: ActionTypes.logoutUser,
 //   });
 // };
+
+export const getUserAction = () => async (dispatch: Dispatch): Promise<void> => {
+  const user = await getUser();
+  const userState = {
+    details: user,
+    loggedIn: true,
+  }
+  dispatch<FetchingUserAction>({
+    type: ActionTypes.fetchUser,
+    payload: userState,
+  });
+  // dispatch<LoginUserAction>({
+  //   type: ActionTypes.loginUser,
+  //   payload: user,
+  // });
+};

@@ -7,7 +7,6 @@ import { Box } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import { required, length, email, confirmPass } from '../utils/validation';
 // import { createUserAction } from '../actions/index';
-import { FormItem, Validator } from './Login';
 import createUser from '../data/create-user';
 
 const useStyles = makeStyles({
@@ -28,7 +27,7 @@ const Signup = (): ReactElement => {
   const classes = useStyles();
   // const isError = useSelector((state: any) => state.error);
   const [formIsValid, validateForm] = React.useState(false);
-  const [form, setForm] = React.useState<Record<string, FormItem>>({
+  const [form, setForm] = React.useState<Record<string, GVType.FormItem>>({
     username: {
       value: '',
       touched: false,
@@ -77,7 +76,7 @@ const Signup = (): ReactElement => {
     const { value } = target;
     let isInputValid = true;
 
-    form[input].validators.map((validator: Validator): void => {
+    form[input].validators.map((validator: GVType.Validator): void => {
       isInputValid = isInputValid && validator(value);
     });
 
@@ -94,9 +93,9 @@ const Signup = (): ReactElement => {
       },
     };
 
-    const formEntries: [string, FormItem][] = Object.entries(updatedForm);
+    const formEntries: [string, GVType.FormItem][] = Object.entries(updatedForm);
 
-    const validations = formEntries.map((item: [string, FormItem]) => {
+    const validations = formEntries.map((item: [string, GVType.FormItem]) => {
       return item[1].valid;
     });
     const reducer = (acc: boolean, item: boolean): boolean => {

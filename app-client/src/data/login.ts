@@ -10,7 +10,6 @@ interface LoginVariables {
 }
 
 const login = async (variables: GVType.LoginUserArgs): Promise<GVType.LoggedInUser | undefined> => {
-  console.log('111', variables)
   try {
     const response = await graphQL.query<UserQLResult, LoginVariables>(`
     query loggingInuser($email: String!, $password: String!){
@@ -29,7 +28,7 @@ const login = async (variables: GVType.LoginUserArgs): Promise<GVType.LoggedInUs
     }
     return response.login;
   } catch(e: any) {
-    console.log('!!!', e)
+    console.log(e)
   }
 };
 

@@ -20,6 +20,12 @@ const userAuthReducer = (state: UserState = { details: { _id: '', email: '', use
         ...payload
       }
     }
+    case ActionTypes.fetchUser: {
+      const { payload } = action;
+      return {
+        ...payload
+      }
+    }
     // case ActionTypes.logoutUser: {
     //   return {
     //     ...state,

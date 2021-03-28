@@ -1,16 +1,12 @@
 import bcrypt from 'bcrypt';
+import { Request } from 'express';
 import { validateUser } from './utils';
-import User, { IUser } from '../modals/user';
+import User, { IUser } from '../../modals/user';
 import jwt from 'jsonwebtoken';
 
 interface CreateUser {
   userInput: GVType.SignupUser
 }
-
-interface GetUser {
-  email: string;
-}
-
 interface Login {
   email: string;
   password: string;
@@ -41,9 +37,12 @@ export default {
       throw err;
     }
   },
-  async user(args: GetUser, _req: Request): Promise<IUser> {
-    const { email } = args;
-    const user = await User.findOne({email});
+  async user(_args: any, req: Request): Promise<IUser> {
+    const { userId } = req;
+    if (!userId) {
+      throw new Error('can not query user as no id was provided in the request');
+    }
+    const user = await User.findById(userId);
 
     if (!user) {
       throw new Error('User not found');
