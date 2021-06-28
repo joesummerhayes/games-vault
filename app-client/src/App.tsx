@@ -10,6 +10,7 @@ import {colors} from './theme';
 import { Login } from './views/Login';
 import Signup from './views/Signup';
 import { getUserAction } from './actions/auth';
+import { CreateReview } from './views/CreateReview'
 
 
 const useStyles = makeStyles({
@@ -48,6 +49,7 @@ const App: React.FC = () => {
             <Route expact component={Review} path="/review" />
             <Route exact component={Login} path="/login" />
             <Route exact component={Signup} path="/signup" />
+            <Route exact component={CreateReview} path="/create-review" />
           </div>
         </Container>
       </div>
