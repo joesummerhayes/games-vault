@@ -10,6 +10,18 @@ export const Form: React.FC<IForm> = (props: IForm) => {
   }, [fields]);
 
   const [form, setForm] = React.useState<IFormField[]>([])
+  console.log(form)
+
+  const onBlur = (event: React.FocusEvent) => {
+    const { target: { id } } = event;
+    const formCopy = form.map((field) => {
+      if (field.key !== id) return field;
+      const activeField = {...field};
+      activeField.touched = true;
+      return activeField;
+    })
+    setForm(formCopy);
+  }
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const { target } = event;
@@ -17,12 +29,19 @@ export const Form: React.FC<IForm> = (props: IForm) => {
     const { value } = target;
 
     const formCopy = form.map((field) => {
-      let returnValue = {...field};
-      if (field.key === input) {
-        returnValue.value = value;
-      }
-      console.log(returnValue);
-      return returnValue;
+      if (field.key !== input) return field;
+      let activeField = {...field};
+      // does it pass validation?
+      let isValid = true;
+      activeField.validators.map((validator): void => {
+        isValid = isValid && validator(activeField.value);
+      });
+      // update valid status
+      activeField.valid = isValid;
+
+      // update value
+      activeField.value = value;
+      return activeField;
     });
 
     setForm(formCopy);
@@ -41,6 +60,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
                   required={required}
                   fullWidth
                   onChange={handleInputChange}
+                  onBlur={onBlur}
                 />
               </div>
             );

@@ -1,4 +1,5 @@
 import React from 'react';
+import {required} from '../utils/validation';
 import { Form } from './Form';
 import {IForm, Valuetype} from './Form/form-types';
 
@@ -8,12 +9,18 @@ export const CreateReview: React.FC = () => {
       {
         key: 'name',
         valueType: Valuetype.string,
-        validators: [],
+        validators: [required],
         value: ''
       },
       {
         key: 'game',
         valueType: Valuetype.string,
+        validators: [],
+        value: ''
+      },
+      {
+        key: 'score',
+        valueType: Valuetype.number,
         validators: [],
         value: ''
       }
