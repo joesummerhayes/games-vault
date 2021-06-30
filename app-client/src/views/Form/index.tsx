@@ -1,15 +1,17 @@
 import React from 'react';
 import { IForm, IFormField } from './form-types';
 import TextField from '@material-ui/core/TextField';
+import Button from '../../components/Button';
 
 export const Form: React.FC<IForm> = (props: IForm) => {
-  const { fields } = props;
+  const { fields, onSubmit } = props;
 
   React.useEffect(() => {
     setForm(fields)
   }, [fields]);
 
   const [form, setForm] = React.useState<IFormField[]>([])
+  const [formReady, changeReadyState] = React.useState<boolean>(false);
   console.log(form)
 
   const onBlur = (event: React.FocusEvent) => {
@@ -34,7 +36,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       // does it pass validation?
       let isValid = true;
       activeField.validators.map((validator): void => {
-        isValid = isValid && validator(activeField.value);
+        isValid = isValid && validator(value);
       });
       // update valid status
       activeField.valid = isValid;
@@ -44,27 +46,43 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       return activeField;
     });
 
+    // set form as ready if all required fields are marked as valid
+    const requiredFields = formCopy.filter((field) => field.required)
+    const validations = requiredFields.map((field) => field.valid);
+    const readyCheck = validations.reduce((acc, cur) => {
+      if (acc && cur) {
+        return cur
+      };
+      return false
+    });
+    if (readyCheck) {
+      changeReadyState(true);
+    }
+
     setForm(formCopy);
   }
 
     return (
       <form>
-        {form.map(({ key, value, valueType, validators, touched, valid, placeholder, required }) => {
+        {form.map(({ key, value, touched, valid, placeholder, required, helperText }) => {
             return (
               <div>
                 <TextField
                   id={key}
                   variant="outlined"
-                  placeholder={key}
+                  placeholder={placeholder}
                   value={value}
                   required={required}
                   fullWidth
                   onChange={handleInputChange}
                   onBlur={onBlur}
+                  error={touched && !valid}
+                  helperText={touched && !valid ? helperText : ''}
                 />
               </div>
             );
         })}
+        <Button text="submit" clickHandler={onSubmit} disabled={!formReady} />
       </form>
     );
 };

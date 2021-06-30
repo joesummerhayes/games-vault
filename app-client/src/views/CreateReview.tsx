@@ -10,7 +10,9 @@ export const CreateReview: React.FC = () => {
         key: 'name',
         valueType: Valuetype.string,
         validators: [required],
-        value: ''
+        value: '',
+        helperText: 'must provide a name',
+        required: true
       },
       {
         key: 'game',
