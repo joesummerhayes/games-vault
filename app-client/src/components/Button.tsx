@@ -9,6 +9,7 @@ interface ButtonProps {
   smallButtonSecondary?: boolean;
   bigButtonDark?: boolean;
   smallButtonCancel?: boolean;
+  disabled?: boolean;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -71,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
   const classes = useStyles();
-  const { text, clickHandler, className = '', smallButtonSecondary, bigButtonDark, smallButtonCancel } = props;
+  const { text, clickHandler, className = '', smallButtonSecondary, bigButtonDark, smallButtonCancel, disabled } = props;
 
   const getClass = () => {
     if (smallButtonSecondary) {
@@ -85,6 +86,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     }
     return `${classes.root} ${classes.bigButtonPrimary} ${className}`;
   };
+  console.log(disabled);
 
   return (
     <MuiButton
@@ -92,6 +94,7 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
       className={getClass()}
       variant="contained"
       type="submit"
+      disabled={disabled}
     >
       {text}
     </MuiButton>
