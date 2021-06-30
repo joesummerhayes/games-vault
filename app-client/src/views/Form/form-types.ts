@@ -19,6 +19,7 @@ export interface IFormField {
   valid?: boolean;
   placeholder?: string;
   required?: boolean;
+  helperText?: string;
 }
 
 export interface IForm {
