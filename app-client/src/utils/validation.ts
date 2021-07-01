@@ -46,3 +46,7 @@ export const formValidationCheck = (formToCheck: any): boolean => {
 
   return validations.reduce(reducer, true);
 };
+
+// export const scoreOutOfTen = (score: number) => {
+
+// }

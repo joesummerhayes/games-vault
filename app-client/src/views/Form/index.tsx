@@ -1,5 +1,5 @@
 import React from 'react';
-import { IForm, IFormField } from './form-types';
+import { IForm, IFormField, Valuetype } from './form-types';
 import TextField from '@material-ui/core/TextField';
 import Button from '../../components/Button';
 
@@ -12,7 +12,6 @@ export const Form: React.FC<IForm> = (props: IForm) => {
 
   const [form, setForm] = React.useState<IFormField[]>([])
   const [formReady, changeReadyState] = React.useState<boolean>(false);
-  console.log(form)
 
   const onBlur = (event: React.FocusEvent) => {
     const { target: { id } } = event;
@@ -62,7 +61,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
 
     return (
       <form>
-        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth }) => {
+        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType }) => {
             return (
               <div>
                 <TextField
@@ -76,6 +75,10 @@ export const Form: React.FC<IForm> = (props: IForm) => {
                   onBlur={onBlur}
                   error={touched && !valid}
                   helperText={touched && !valid ? helperText : ''}
+                  multiline={multiline}
+                  rows={rows}
+                  type={Valuetype[valueType]}
+
                 />
               </div>
             );

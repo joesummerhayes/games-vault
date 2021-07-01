@@ -11,23 +11,29 @@ export const CreateReview: React.FC = () => {
         valueType: Valuetype.string,
         validators: [required],
         value: '',
-        helperText: 'must provide a name',
+        helperText: 'must provide a game title',
         required: true,
-        placeholder: 'name'
+        placeholder: 'title',
+        fullWidth: true
       },
       {
-        key: 'game',
+        key: 'synopsis',
         valueType: Valuetype.string,
-        validators: [],
+        validators: [required],
         value: '',
-        placeholder: 'game'
+        placeholder: 'synopsis',
+        multiline: true,
+        required: true,
+        fullWidth: true,
+        rows: 5
       },
       {
         key: 'score',
         valueType: Valuetype.number,
         validators: [],
         value: '',
-        placeholder: 'score'
+        required: true,
+        placeholder: 'score out of 10',
       }
     ],
     onSubmit: () => console.log('submit')

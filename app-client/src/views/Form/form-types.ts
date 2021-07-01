@@ -21,6 +21,8 @@ export interface IFormField {
   required?: boolean;
   helperText?: string;
   fullWidth?: boolean;
+  multiline?: boolean;
+  rows?: number;
 }
 
 export interface IForm {
