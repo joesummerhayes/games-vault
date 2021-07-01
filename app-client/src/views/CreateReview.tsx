@@ -41,6 +41,18 @@ export const CreateReview: React.FC = () => {
         rows: 5
       },
       {
+        key: 'images',
+        valueType: Valuetype.string,
+        validators: [required],
+        helperText: `Add urls to images seperated by a commar`,
+        value: '',
+        placeholder: 'Add urls to images seperated by a commar',
+        multiline: true,
+        required: true,
+        fullWidth: true,
+        rows: 5
+      },
+      {
         key: 'score',
         helperText: `Don't forget to provide a rating out of 10!`,
         valueType: Valuetype.number,
