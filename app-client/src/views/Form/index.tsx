@@ -61,9 +61,9 @@ export const Form: React.FC<IForm> = (props: IForm) => {
 
     return (
       <form>
-        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType }) => {
+        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType, label }) => {
             return (
-              <div>
+              <div className="ma3">
                 <TextField
                   id={key}
                   variant="outlined"
@@ -78,7 +78,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
                   multiline={multiline}
                   rows={rows}
                   type={Valuetype[valueType]}
-
+                  label={label}
                 />
               </div>
             );

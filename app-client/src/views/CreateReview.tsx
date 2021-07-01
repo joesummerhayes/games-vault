@@ -1,5 +1,5 @@
 import React from 'react';
-import {required} from '../utils/validation';
+import {maxTen, required} from '../utils/validation';
 import { Form } from './Form';
 import {IForm, Valuetype} from './Form/form-types';
 
@@ -14,6 +14,7 @@ export const CreateReview: React.FC = () => {
         helperText: `Don't forget to provide a title`,
         required: true,
         placeholder: 'Title',
+        label: 'Title',
         fullWidth: true
       },
       {
@@ -23,6 +24,7 @@ export const CreateReview: React.FC = () => {
         helperText: `Don't forget to provide a review synopsis`,
         value: '',
         placeholder: 'Synopsis',
+        label: 'Synopsis',
         multiline: true,
         required: true,
         fullWidth: true,
@@ -35,6 +37,7 @@ export const CreateReview: React.FC = () => {
         helperText: `Don't forget to write your main review`,
         value: '',
         placeholder: 'Review',
+        label: 'Review',
         multiline: true,
         required: true,
         fullWidth: true,
@@ -46,6 +49,7 @@ export const CreateReview: React.FC = () => {
         validators: [required],
         helperText: `Add urls to images seperated by a commar`,
         value: '',
+        label: 'Images',
         placeholder: 'Add urls to images seperated by a commar',
         multiline: true,
         required: true,
@@ -54,9 +58,10 @@ export const CreateReview: React.FC = () => {
       },
       {
         key: 'score',
+        label: 'Score',
         helperText: `Don't forget to provide a rating out of 10!`,
         valueType: Valuetype.number,
-        validators: [],
+        validators: [required, maxTen],
         value: '',
         required: true,
         placeholder: 'Score out of 10',

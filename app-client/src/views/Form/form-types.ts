@@ -23,6 +23,7 @@ export interface IFormField {
   fullWidth?: boolean;
   multiline?: boolean;
   rows?: number;
+  label?: string;
 }
 
 export interface IForm {
