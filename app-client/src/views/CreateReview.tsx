@@ -1,7 +1,7 @@
 import React from 'react';
 import {maxTen, required} from '../utils/validation';
 import { Form } from './Form';
-import {IForm, Valuetype} from './Form/form-types';
+import {IForm, Valuetype, Selection} from './Form/form-types';
 
 export const CreateReview: React.FC = () => {
   const form: IForm = {
@@ -65,7 +65,25 @@ export const CreateReview: React.FC = () => {
         value: '',
         required: true,
         placeholder: 'Score out of 10',
-      }
+      },
+      {
+        key: 'console',
+        label: 'Console',
+        helperText: `Don't forget to select the console you played the game on`,
+        valueType: Valuetype.string,
+        validators: [required],
+        value: '',
+        required: true,
+        placeholder: 'Console',
+        selection: [
+          Selection.PS4,
+          Selection.PS5,
+          Selection.Switch,
+          Selection.Xbox1,
+          Selection.XboxSX,
+          Selection.PC,
+        ]
+      },
     ],
     onSubmit: () => console.log('submit')
   }

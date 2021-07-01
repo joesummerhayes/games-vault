@@ -1,6 +1,6 @@
 import React from 'react';
 import { IForm, IFormField, Valuetype } from './form-types';
-import TextField from '@material-ui/core/TextField';
+import { TextField, InputLabel, Select, MenuItem } from '@material-ui/core';
 import Button from '../../components/Button';
 
 export const Form: React.FC<IForm> = (props: IForm) => {
@@ -46,6 +46,8 @@ export const Form: React.FC<IForm> = (props: IForm) => {
     });
 
     // set form as ready if all required fields are marked as valid
+
+    // TODO consider pulling this funtionality out (or some if poss) so i can re-use in the handle change function
     const requiredFields = formCopy.filter((field) => field.required)
     const validations = requiredFields.map((field) => field.valid);
     const readyCheck = validations.reduce((acc, cur) => {
@@ -59,9 +61,32 @@ export const Form: React.FC<IForm> = (props: IForm) => {
     setForm(formCopy);
   }
 
+  const handleDropDownChange = (event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>, child: React.ReactNode) => {
+    const { target } = event;
+    const { value, name } = target;
+
+    const formCopy = form.map((field) => {
+      if (field.key !== name) return field;
+      let activeField = {...field};
+      activeField.value = value;
+      return activeField;
+    })
+    setForm(formCopy);
+  }
+
     return (
       <form>
-        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType, label }) => {
+        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType, label, selection }) => {
+          if (selection) {
+            return (
+              <div className="ma3">
+                <InputLabel id={key}>{placeholder}</InputLabel>
+                <Select labelId={key} name={key} onChange={handleDropDownChange} value={value}>
+                  {selection.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
+                </Select>
+              </div>
+            );
+          }
             return (
               <div className="ma3">
                 <TextField

@@ -10,6 +10,14 @@ export interface Validator {
   (arg: string): boolean;
 }
 
+export enum Selection {
+  PS4 = "PlayStation 4",
+  PS5 = "PlayStation 5",
+  Switch = "Nintendo Switch",
+  Xbox1 = "Xbox 1",
+  XboxSX = "Xbox Series X",
+  PC ="PC",
+}
 export interface IFormField {
   key: string;
   valueType: Valuetype;
@@ -24,6 +32,7 @@ export interface IFormField {
   multiline?: boolean;
   rows?: number;
   label?: string;
+  selection?: string[];
 }
 
 export interface IForm {
