@@ -55,16 +55,14 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       };
       return false
     });
-    if (readyCheck) {
-      changeReadyState(true);
-    }
+    readyCheck ? changeReadyState(true) : changeReadyState(false);
 
     setForm(formCopy);
   }
 
     return (
       <form>
-        {form.map(({ key, value, touched, valid, placeholder, required, helperText }) => {
+        {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth }) => {
             return (
               <div>
                 <TextField
@@ -73,7 +71,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
                   placeholder={placeholder}
                   value={value}
                   required={required}
-                  fullWidth
+                  fullWidth={fullWidth}
                   onChange={handleInputChange}
                   onBlur={onBlur}
                   error={touched && !valid}

@@ -20,6 +20,7 @@ export interface IFormField {
   placeholder?: string;
   required?: boolean;
   helperText?: string;
+  fullWidth?: boolean;
 }
 
 export interface IForm {

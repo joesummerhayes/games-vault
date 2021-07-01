@@ -7,29 +7,35 @@ export const CreateReview: React.FC = () => {
   const form: IForm = {
     fields: [
       {
-        key: 'name',
+        key: 'title',
         valueType: Valuetype.string,
         validators: [required],
         value: '',
         helperText: 'must provide a name',
-        required: true
+        required: true,
+        placeholder: 'name'
       },
       {
         key: 'game',
         valueType: Valuetype.string,
         validators: [],
-        value: ''
+        value: '',
+        placeholder: 'game'
       },
       {
         key: 'score',
         valueType: Valuetype.number,
         validators: [],
-        value: ''
+        value: '',
+        placeholder: 'score'
       }
     ],
     onSubmit: () => console.log('submit')
   }
+
+ 
+
   return (
-    <Form fields={form.fields} onSubmit={form.onSubmit} />
+    <Form { ...form } />
   );
 }
