@@ -47,6 +47,4 @@ export const formValidationCheck = (formToCheck: any): boolean => {
   return validations.reduce(reducer, true);
 };
 
-// export const scoreOutOfTen = (score: number) => {
-
-// }
+export const maxTen = (num: string): boolean => parseInt(num) <= 10;
