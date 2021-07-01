@@ -5,7 +5,6 @@ interface UserQLResult {
 }
 
 const createUser = async (variables: GVType.SignupUser): Promise<GVType.User> => {
-  console.log('111', variables);
   const response = await graphQL.query<UserQLResult, GVType.SignupUser>(`
     mutation createNewUser($username: String!, $email: String!, $password: String!){
       createUser(userInput: {username: $username, email: $email, password: $password}) {
