@@ -86,7 +86,6 @@ const Button: React.FC<ButtonProps> = (props: ButtonProps) => {
     }
     return `${classes.root} ${classes.bigButtonPrimary} ${className}`;
   };
-  console.log(disabled);
 
   return (
     <MuiButton

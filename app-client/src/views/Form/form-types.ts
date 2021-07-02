@@ -37,5 +37,5 @@ export interface IFormField {
 
 export interface IForm {
   fields: IFormField[];
-  onSubmit: () => any;
+  endpoint: string;
 }

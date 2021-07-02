@@ -85,7 +85,8 @@ export const CreateReview: React.FC = () => {
         ]
       },
     ],
-    onSubmit: () => console.log('submit')
+    // TODO pass in end point to hit
+    endpoint: ''
   }
 
  

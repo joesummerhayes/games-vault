@@ -4,7 +4,7 @@ import { TextField, InputLabel, Select, MenuItem, FormControl } from '@material-
 import Button from '../../components/Button';
 
 export const Form: React.FC<IForm> = (props: IForm) => {
-  const { fields, onSubmit } = props;
+  const { fields, endpoint } = props;
 
   React.useEffect(() => {
     setForm(fields)
@@ -69,17 +69,22 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       if (field.key !== name) return field;
       let activeField = {...field};
       activeField.value = value;
+      activeField.valid = true;
       return activeField;
     })
     setForm(formCopy);
   }
+
+  const onSubmit = () => {
+    // call action creator passing in end point url to post form data to
+  };
 
     return (
       <form>
         {form.map(({ key, value, touched, valid, placeholder, required, helperText, fullWidth, multiline, rows, valueType, label, selection }) => {
           if (selection) {
             return (
-              <div className="ma3">
+              <div className="mt3 mb3">
                 <FormControl variant="filled" className="w5">
                   <InputLabel id={key}>{placeholder}</InputLabel>
                   <Select labelId={key} name={key} onChange={handleDropDownChange} value={value}>
@@ -90,7 +95,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
             );
           }
             return (
-              <div className="ma3">
+              <div className="mt3 mb3">
                 <TextField
                   id={key}
                   variant="outlined"
