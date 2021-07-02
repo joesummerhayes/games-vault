@@ -1,6 +1,6 @@
 import React from 'react';
 import { IForm, IFormField, Valuetype } from './form-types';
-import { TextField, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { TextField, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import Button from '../../components/Button';
 
 export const Form: React.FC<IForm> = (props: IForm) => {
@@ -80,10 +80,12 @@ export const Form: React.FC<IForm> = (props: IForm) => {
           if (selection) {
             return (
               <div className="ma3">
-                <InputLabel id={key}>{placeholder}</InputLabel>
-                <Select labelId={key} name={key} onChange={handleDropDownChange} value={value}>
-                  {selection.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
-                </Select>
+                <FormControl variant="filled" className="w5">
+                  <InputLabel id={key}>{placeholder}</InputLabel>
+                  <Select labelId={key} name={key} onChange={handleDropDownChange} value={value}>
+                    {selection.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
+                  </Select>
+                </FormControl>
               </div>
             );
           }
@@ -104,6 +106,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
                   rows={rows}
                   type={Valuetype[valueType]}
                   label={label}
+                  InputProps={{style: {minHeight: '3.5rem'}}}
                 />
               </div>
             );
