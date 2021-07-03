@@ -6,6 +6,8 @@ export interface ReviewI extends Document {
   review: string;
   rating: number;
   console: string;
+  images: string[];
+  userId: string;
 }
 
 const reviewSchema = new Schema({
@@ -32,6 +34,10 @@ const reviewSchema = new Schema({
   images: {
     type: [String],
     required: true,
+  },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
   },
 });
 

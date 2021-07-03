@@ -15,5 +15,6 @@ type Review {
   console: String!
   images: [String]!
   rating: Float!
+  userId: String!
 }
 `;
