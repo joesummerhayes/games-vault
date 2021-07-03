@@ -1,11 +1,11 @@
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { validateUser } from './utils';
 import User, { IUser } from '../../modals/user';
-import jwt from 'jsonwebtoken';
 
 interface CreateUser {
-  userInput: GVType.SignupUser
+  userInput: GVType.SignupUser;
 }
 interface Login {
   email: string;
@@ -13,14 +13,14 @@ interface Login {
 }
 
 export default {
-  async createUser(args:  CreateUser, _req: Request): Promise<IUser> {
+  async createUser(args: CreateUser, _req: Request): Promise<IUser> {
     const { userInput: { email, username, password } } = args;
-    const existingUser = await User.findOne({ email })
+    const existingUser = await User.findOne({ email });
     if (existingUser) {
       return existingUser;
     }
 
-    validateUser(email, password)
+    validateUser(email, password);
 
     const hashedPassword = await bcrypt.hash(password, 12);
     const newUser = new User({
@@ -32,7 +32,7 @@ export default {
     try {
       newUser.save();
       return newUser;
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       throw err;
     }
@@ -67,9 +67,9 @@ export default {
     const parsedUser = {
       _id: user._id.toString(),
       email: user.email,
-      username: user.username
-    }
+      username: user.username,
+    };
 
     return { token, user: parsedUser };
-  }
-}
+  },
+};
