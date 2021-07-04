@@ -2,6 +2,7 @@ import React from 'react';
 import { IForm, IFormField, Valuetype } from './form-types';
 import { TextField, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import Button from '../../components/Button';
+import { validateForm } from './utils';
 
 export const Form: React.FC<IForm> = (props: IForm) => {
   const { fields, endpoint } = props;
@@ -12,6 +13,8 @@ export const Form: React.FC<IForm> = (props: IForm) => {
 
   const [form, setForm] = React.useState<IFormField[]>([])
   const [formReady, changeReadyState] = React.useState<boolean>(false);
+
+  console.log(form);
 
   const onBlur = (event: React.FocusEvent) => {
     const { target: { id } } = event;
@@ -46,18 +49,9 @@ export const Form: React.FC<IForm> = (props: IForm) => {
     });
 
     // set form as ready if all required fields are marked as valid
-
-    // TODO consider pulling this funtionality out (or some if poss) so i can re-use in the handle change function
-    const requiredFields = formCopy.filter((field) => field.required)
-    const validations = requiredFields.map((field) => field.valid);
-    const readyCheck = validations.reduce((acc, cur) => {
-      if (acc && cur) {
-        return cur
-      };
-      return false
-    });
+    const readyCheck = validateForm(formCopy);
     readyCheck ? changeReadyState(true) : changeReadyState(false);
-
+    
     setForm(formCopy);
   }
 
@@ -71,7 +65,10 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       activeField.value = value;
       activeField.valid = true;
       return activeField;
-    })
+    });
+    
+    const readyCheck = validateForm(formCopy);
+    readyCheck ? changeReadyState(true) : changeReadyState(false);
     setForm(formCopy);
   }
 
