@@ -5,11 +5,11 @@ export default `
     password: String!
   },
   input ReviewInputData {
-    title: String!
-    synopsis: String!
-    review: String!
     console: String!
     images: [String]!
     rating: Float!
+    review: String!
+    synopsis: String!
+    title: String!
   }
 `;

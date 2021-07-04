@@ -9,12 +9,12 @@ type LoggedInUser {
   user: User
 }
 type Review {
-  title: String!
-  synopsis: String!
-  review: String!
   console: String!
   images: [String]!
   rating: Float!
+  review: String!
+  synopsis: String!
+  title: String!
   userId: String!
 }
 `;

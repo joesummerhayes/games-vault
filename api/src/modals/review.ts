@@ -1,12 +1,12 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ReviewI extends Document {
-  title: string;
-  synopsis: string;
-  review: string;
-  rating: number;
   console: string;
   images: string[];
+  rating: number;
+  review: string;
+  synopsis: string;
+  title: string;
   userId: string;
 }
 
