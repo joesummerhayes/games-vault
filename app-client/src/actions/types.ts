@@ -13,3 +13,13 @@ export type Action =
   LoginUserAction |
   FetchingUserAction |
   CreateReviewAction
+
+export interface ReviewFormData {
+  console: string;
+  images: string;
+  rating: number;
+  review: string;
+  synopsis: string;
+  title: string;
+  userId: string;
+}

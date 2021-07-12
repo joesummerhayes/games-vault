@@ -11,7 +11,7 @@ type LoggedInUser {
 type Review {
   console: String!
   images: [String]!
-  rating: Float!
+  rating: String!
   review: String!
   synopsis: String!
   title: String!

@@ -7,9 +7,10 @@ export default `
   input ReviewInputData {
     console: String!
     images: [String]!
-    rating: Float!
+    rating: String!
     review: String!
     synopsis: String!
     title: String!
+    userId: String!
   }
 `;

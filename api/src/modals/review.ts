@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from 'mongoose';
 export interface ReviewI extends Document {
   console: string;
   images: string[];
-  rating: number;
+  rating: string;
   review: string;
   synopsis: string;
   title: string;

@@ -7,6 +7,7 @@ interface CreateReview {
 
 export default {
   async createReview(args: CreateReview, _req: Request): Promise<ReviewI> {
+    console.log('resolver hit');
     const { reviewInput } = args;
     const newReview = new Review(reviewInput);
     try {

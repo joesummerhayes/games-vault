@@ -1,11 +1,14 @@
 import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import { IForm, IFormField, Valuetype } from './form-types';
 import { TextField, InputLabel, Select, MenuItem, FormControl } from '@material-ui/core';
 import Button from '../../components/Button';
 import { validateForm } from './utils';
 
+import { AppState } from '../../app-state';
+
 export const Form: React.FC<IForm> = (props: IForm) => {
-  const { fields, endpoint } = props;
+  const { fields, onSubmit } = props;
 
   React.useEffect(() => {
     setForm(fields)
@@ -13,8 +16,26 @@ export const Form: React.FC<IForm> = (props: IForm) => {
 
   const [form, setForm] = React.useState<IFormField[]>([])
   const [formReady, changeReadyState] = React.useState<boolean>(false);
+  const userId = useSelector((state: AppState) => state?.user?.details?._id);
+  const dispatch = useDispatch();
 
-  console.log(form);
+  const submitForm = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!formReady) {
+      console.error('Form is in an incomplete state');
+    };
+    const serialisedForm = form.reduce((acc, cur) => {
+      const { key, value } = cur;
+      return {
+        ...acc,
+        [key]: value
+      };
+    }, {
+      userId
+    })
+    console.log('!!!!', serialisedForm);
+    dispatch(onSubmit(serialisedForm));
+  }
 
   const onBlur = (event: React.FocusEvent) => {
     const { target: { id } } = event;
@@ -66,15 +87,11 @@ export const Form: React.FC<IForm> = (props: IForm) => {
       activeField.valid = true;
       return activeField;
     });
-    
+
     const readyCheck = validateForm(formCopy);
     readyCheck ? changeReadyState(true) : changeReadyState(false);
     setForm(formCopy);
   }
-
-  const onSubmit = () => {
-    // call action creator passing in end point url to post form data to
-  };
 
     return (
       <form>
@@ -113,7 +130,7 @@ export const Form: React.FC<IForm> = (props: IForm) => {
               </div>
             );
         })}
-        <Button text="submit" clickHandler={onSubmit} disabled={!formReady} />
+        <Button text="submit" clickHandler={submitForm} disabled={!formReady} />
       </form>
     );
 };

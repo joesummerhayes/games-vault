@@ -1,3 +1,4 @@
+import {Dispatch} from "redux";
 
 export enum Valuetype {
   "string",
@@ -37,5 +38,10 @@ export interface IFormField {
 
 export interface IForm {
   fields: IFormField[];
-  endpoint: string;
+
+  // this actually needs to describe an action creator function
+  // onSubmit<a, b>(inputdata: a): Promise<b>;
+  onSubmit: any;
 }
+
+// const createReviewAction: (createReviewInputData: GVType.Review) => (dispatch: Dispatch) => Promise<void>

@@ -1,7 +1,9 @@
 import React from 'react';
 import {maxTen, required} from '../utils/validation';
 import { Form } from './Form';
+import { createReviewAction } from '../actions/review';
 import {IForm, Valuetype, Selection} from './Form/form-types';
+import GVType from '../../../@types';
 
 export const CreateReview: React.FC = () => {
   const form: IForm = {
@@ -57,8 +59,8 @@ export const CreateReview: React.FC = () => {
         rows: 5
       },
       {
-        key: 'score',
-        label: 'Score',
+        key: 'rating',
+        label: 'Rating',
         helperText: `Don't forget to provide a rating out of 10!`,
         valueType: Valuetype.number,
         validators: [required, maxTen],
@@ -85,8 +87,7 @@ export const CreateReview: React.FC = () => {
         ]
       },
     ],
-    // TODO pass in end point to hit
-    endpoint: ''
+    onSubmit: createReviewAction,
   }
 
  
