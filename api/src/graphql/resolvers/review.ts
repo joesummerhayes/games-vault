@@ -1,21 +1,27 @@
 import GVType from '../../../../@types';
-import Review, { ReviewI } from '../../modals/review';
+import Review from '../../modals/review';
 
 interface CreateReview {
-  reviewInput: GVType.Review;
+  reviewInput: GVType.CreateReview;
+}
+
+interface UserId {
+  _id: string;
 }
 
 export default {
-  async createReview(args: CreateReview, _req: Request): Promise<ReviewI> {
-    console.log('resolver hit');
+  async createReview(args: CreateReview, _req: Request): Promise<UserId> {
     const { reviewInput } = args;
     const newReview = new Review(reviewInput);
+    if (!newReview) {
+      throw new Error('problem saving review');
+    }
     try {
       const review = await newReview.save();
-      return review;
+      const id = review._id.toString();
+      return { _id: id };
     } catch (e) {
-      console.log(e);
-      return newReview;
+      throw new Error('Failed to save review');
     }
   },
 };
