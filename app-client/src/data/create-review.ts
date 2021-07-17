@@ -5,7 +5,6 @@ interface ReviewQLResult {
   createReview: {
     _id: string
   }
-  // _id: string
 }
 
 export const createReview = async (variables: GVType.CreateReview): Promise<string> => {
