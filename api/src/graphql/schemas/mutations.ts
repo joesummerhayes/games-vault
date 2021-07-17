@@ -1,5 +1,5 @@
 export default `
 type RootMutation {
   createUser(userInput: UserInputData!): User!
-  createReview(reviewInput: ReviewInputData!): Review!
+  createReview(reviewInput: ReviewInputData!): ReviewId!
 }`;

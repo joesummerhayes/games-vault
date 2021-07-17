@@ -8,7 +8,11 @@ type LoggedInUser {
   token: String
   user: User
 }
+type ReviewId {
+  _id: String
+}
 type Review {
+  _id: String!
   console: String!
   images: [String]!
   rating: String!
