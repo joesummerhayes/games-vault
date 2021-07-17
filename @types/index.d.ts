@@ -1,6 +1,6 @@
 import { User as IUser, SignupUser as ISignupUser, LoggedInUser as ILoggedInUser, LoginUserArgs as ILoginUserArgs } from './user';
 import { FormItem as IFormItem, Validator as IValidator } from './form';
-import { Review as IReview } from './review';
+import { Review as IReview, CreateReview as ICreateReview } from './review';
 
 declare namespace GVType {
   export type User = IUser;
@@ -12,6 +12,7 @@ declare namespace GVType {
   export type Validator = IValidator;
 
   export type Review = IReview;
+  export type CreateReview = ICreateReview;
 }
 
 export = GVType;
