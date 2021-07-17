@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux';
 import { ActionTypes, ReviewFormData } from './types';
 import { ReviewState } from '../reducers/review';
-import GVType from '../../../@types';
 import createReview from '../data/create-review';
 
 export interface CreateReviewAction {
@@ -18,13 +17,10 @@ export const createReviewAction = (createReviewInputData: ReviewFormData) => asy
       ...createReviewInputData,
       images: imageStrings
     };
-
-    const createdReview = await createReview(serialisedReview);
-    if (!createdReview) {
+    const createdReviewId = await createReview(serialisedReview);
+    if (!createdReviewId) {
       throw new Error('could not save review, please try again');
     };
-    const { title } = createdReview;
-    console.log(title);
   } catch (e) {
     console.error(e);
   }
