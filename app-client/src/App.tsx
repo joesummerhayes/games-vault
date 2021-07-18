@@ -46,7 +46,7 @@ const App: React.FC = () => {
           <div className={`${classes.conatiner}`}>
             <header className="App-header">
             </header>
-            <Route expact component={Review} path="/review" />
+            <Route expact component={Review} path="/review/:id" />
             <Route exact component={Login} path="/login" />
             <Route exact component={Signup} path="/signup" />
             <Route exact component={CreateReview} path="/create-review" />
