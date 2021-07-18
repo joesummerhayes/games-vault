@@ -3,7 +3,6 @@ import {maxTen, required} from '../utils/validation';
 import { Form } from './Form';
 import { createReviewAction } from '../actions/review';
 import {IForm, Valuetype, Selection} from './Form/form-types';
-import GVType from '../../../@types';
 
 export const CreateReview: React.FC = () => {
   const form: IForm = {
