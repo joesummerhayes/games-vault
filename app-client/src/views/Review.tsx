@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { game1 } from '../dummy-data/game1';
 import { Title } from '../components/Title';
 import { makeStyles } from '@material-ui/core/styles';
 import { SliderComponent } from '../components/Slider';
 // import {colors, Typography} from '@material-ui/core';
 import { colors } from '../theme';
+import { RouteComponentProps } from 'react-router-dom';
 
 const styles = makeStyles({
   image: {
@@ -15,7 +16,16 @@ const styles = makeStyles({
   }
 })
 
-export const Review: React.FC = () => {
+type TParams = { id: string };
+
+export const Review: React.FC<RouteComponentProps<TParams>> = ({ match, location }) => {
+  console.log('11111', match, location);
+  const { params: { id } } = match;
+  
+  useEffect(() => {
+    // use ID to get review data from graphQl
+  });
+
   const classes = styles();
   return (
     <>
