@@ -1,9 +1,10 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
 export interface ReviewI extends Document {
+  _id: string;
   console: string;
   images: string[];
-  rating: string;
+  rating: number;
   review: string;
   synopsis: string;
   title: string;
@@ -24,7 +25,7 @@ const reviewSchema = new Schema({
     required: true,
   },
   rating: {
-    type: String,
+    type: Number,
     required: true,
   },
   console: {
