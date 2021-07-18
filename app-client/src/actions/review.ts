@@ -2,7 +2,7 @@ import { Dispatch } from 'redux';
 import { ActionTypes, ReviewFormData } from './types';
 import { ReviewState } from '../reducers/review';
 import createReview from '../data/create-review';
-
+import history from '../history';
 export interface CreateReviewAction {
   type: ActionTypes.createReview;
   payload: ReviewState;
@@ -21,6 +21,8 @@ export const createReviewAction = (createReviewInputData: ReviewFormData) => asy
     if (!createdReviewId) {
       throw new Error('could not save review, please try again');
     };
+    // route user to review page passing in newly created review id as a query parameter
+    history.push(`/review/${createdReviewId}`)
   } catch (e) {
     console.error(e);
   }
