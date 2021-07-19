@@ -18,6 +18,7 @@ const getReview = async (variables: IGetReview): Promise<GVType.Review> => {
         synopsis
         title
         userId
+        review
       }
     }`, variables);
   if (response === null) {
