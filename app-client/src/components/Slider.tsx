@@ -10,33 +10,34 @@ import './slider.css';
 
 const useStyles = makeStyles({})
 
-export const SliderComponent = () => {
-    const classes = useStyles();
+interface ISlider {
+  images: string[]
+}
 
-    const settings = {
-      dots: true,
-      infinite: true,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-    };
+export const SliderComponent: React.FC<ISlider> = ({ images }: ISlider) => {
+  const classes = useStyles();
 
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
+
+  const slides = images.map((image) => {
     return (
-      <Box>
-        <Slider {...settings}>
-          <div>
-            <img src={game1.image[0]} style={{width: '100%' }} />
-          </div>
-          {/* <div>
-            <img src={game1.image[1]} style={{width: '100%' }} />
-          </div> */}
-          <div>
-            <img src={game1.image[2]} style={{width: '100%' }} />
-          </div>
-          <div>
-            <img src={game1.image[3]} style={{width: '100%' }} />
-          </div>
-        </Slider>
-      </Box>
-    );
+      <div>
+        <img src={image} style={{width: '100%' }} alt={image} key={image} />
+      </div>
+    )
+  });
+
+  return (
+    <Box>
+      <Slider {...settings}>
+        {slides}
+      </Slider>
+    </Box>
+  );
   }
