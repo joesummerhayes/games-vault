@@ -8,11 +8,12 @@ export interface CreateReviewAction {
   payload: ReviewState;
 }
 
+// TODO: consider moving this logic to a normal util function seen as we are not actually setting any sort of state
 export const createReviewAction = (createReviewInputData: ReviewFormData) => async(dispatch: Dispatch): Promise<void> => {
   // call graphQL function
   try {
     const { images } = createReviewInputData;
-    const imageStrings = images.trim().split(',');
+    const imageStrings = images.trim().replace(/(\r\n|\n|\r)/gm, "").split(',');
     const serialisedReview = {
       ...createReviewInputData,
       images: imageStrings
@@ -26,6 +27,6 @@ export const createReviewAction = (createReviewInputData: ReviewFormData) => asy
   } catch (e) {
     console.error(e);
   }
-
-  // call dispatch with form to pass the newly saved form data to the reducer
 }
+
+
